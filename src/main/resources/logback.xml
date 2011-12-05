@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+
+	<conversionRule conversionWord="coloredLevel" converterClass="weblogiccli.logger.ColoredLevel" />
+    <conversionRule conversionWord="coloredMessage" converterClass="weblogiccli.logger.ColoredMessage" />
+    <conversionRule conversionWord="coloredException" converterClass="weblogiccli.logger.ColoredException" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="weblogiccli.logger.PatternLayoutEncoderFixedForWindows">
+            <pattern>%coloredMessage%n%coloredException{5}</pattern>
+           <!-- <pattern>%coloredLevel %coloredMessage%n%xException{5}</pattern> -->
+        </encoder>
+    </appender>
+
+    <logger name="weblogiccli" level="DEBUG" />
+    
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

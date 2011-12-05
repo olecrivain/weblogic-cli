@@ -1,0 +1,5 @@
+#!/bin/bash
+
+WEBLOGIC_CLI_DIR=$(dirname $(readlink -f $0))
+
+$JAVA_HOME/bin/java -jar $WEBLOGIC_CLI_DIR/weblogic.jar $* -cfg $WEBLOGIC_CLI_DIR/environnements.conf

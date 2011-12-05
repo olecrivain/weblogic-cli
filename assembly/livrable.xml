@@ -1,0 +1,42 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+	<id>${buildNumber}</id>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<outputDirectory>${project.name}-${buildNumber}</outputDirectory>
+			<includes>
+				<include>weblogic.jar</include>
+			</includes>
+			<fileMode>0644</fileMode>
+			<directoryMode>0644</directoryMode>
+		</fileSet>  
+        <fileSet>
+            <directory>dist</directory>
+            <outputDirectory>${project.name}-${buildNumber}</outputDirectory>
+            <includes>
+                <include>README.txt</include>
+                <include>environnements.conf</include>
+                <include>README.txt</include>
+                <include>weblogic.bat</include>
+            </includes>
+            <fileMode>0644</fileMode>
+            <directoryMode>0644</directoryMode>
+        </fileSet>   
+        <fileSet>
+            <directory>dist</directory>
+            <outputDirectory>${project.name}-${buildNumber}</outputDirectory>
+            <includes>
+                <include>weblogic</include>
+            </includes>
+            <fileMode>0744</fileMode>
+            <directoryMode>0744</directoryMode>
+        </fileSet> 
+	</fileSets>
+</assembly>
