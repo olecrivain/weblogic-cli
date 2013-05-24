@@ -19,9 +19,9 @@ public class ListappsCmd extends Command {
     }
     
 	public void printHelp() {
-    	LOG.info("Utilisation : weblogic listapps <environnement>");
+    	LOG.info("Usage : weblogic listapps <environment>");
         LOG.info("");
-        LOG.info("Liste les applications installées sur un environnement.");
+        LOG.info("List installed applications on a given environment.");
         LOG.info("");
     	printEnvironments();
 	}

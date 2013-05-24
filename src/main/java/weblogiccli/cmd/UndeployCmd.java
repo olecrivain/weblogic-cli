@@ -21,12 +21,12 @@ public class UndeployCmd extends Command {
     
 	@Override
 	public void printHelp() {
-    	LOG.info("Utilisation : weblogic undeploy <environnement> <nom> [--version <version>]");
+    	LOG.info("Usage : weblogic undeploy <environnement> <name> [--version <version>]");
     	LOG.info("");
         printEnvironments();
     	LOG.info("");
     	LOG.info("Options :");
-    	LOG.info("  --version  Version de l'application à désinstaller.");
+    	LOG.info("  --version  Application version to undeploy.");
 	}
 
 	@Override
@@ -50,6 +50,6 @@ public class UndeployCmd extends Command {
         envs.put("localhost", localhost);
         
         UndeployCmd undeploy = new UndeployCmd(envs);
-        undeploy.run(new String[] { "localhost", "it-wlst-test", "--version", "3" });
+        undeploy.run(new String[] { "localhost", "wlst-test", "--version", "3" });
     }
 }

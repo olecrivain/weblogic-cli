@@ -21,9 +21,7 @@
             <directory>dist</directory>
             <outputDirectory>${project.name}-${buildNumber}</outputDirectory>
             <includes>
-                <include>README.txt</include>
-                <include>environnements.conf</include>
-                <include>README.txt</include>
+                <include>environments.conf</include>
                 <include>weblogic.bat</include>
             </includes>
             <fileMode>0644</fileMode>

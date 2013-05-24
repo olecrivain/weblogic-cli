@@ -32,18 +32,14 @@ public class DeployCmd extends Command {
     
 	@Override
 	public void printHelp() {
-    	LOG.info("Utilisation : weblogic deploy <env> <cible> <war> [--nom <nom>] [--force] [--dryrun]");
+    	LOG.info("Usage : weblogic deploy <env> <cible> <war> [--name <name>] [--force] [--dryrun]");
         LOG.info("");
         printEnvironments();
     	LOG.info("");
     	LOG.info("Options:");
-        LOG.info("  --nom     Nom de l'application sur weblogic. Le nom par défaut est le");
-        LOG.info("            nom du fichier war sans le numéro de version et sans le");
-        LOG.info("            \".war\".");
-        LOG.info("  --force   Force le déploiement même s'il y a déjà 2 versions actives");
-        LOG.info("            de l'application. Attention, ce type de déploiement supprime");
-        LOG.info("            des sessions");
-        LOG.info("  --dryrun  Affiche le plan de déploiement sans l'exécuter.");
+        LOG.info("  --name    The war will be installed on weblogic with this name.");
+        LOG.info("  --force   Force deployment when 2 versions of the app are already running.");
+        LOG.info("  --dryrun  Print deployment plan. Does not install anything.");
 	}
 
 	@Override
@@ -54,9 +50,9 @@ public class DeployCmd extends Command {
         String warFilename = getByPosition(args, 2);
         File war = checkWar(warFilename);
         
-        String appName = getOption(args, "--nom", applicationName(war));
-        if (getOption(args, "--nom") == null) {
-            LOG.info("Nom du déploiement calculé à partir du fichier war : \"{}\"", appName);
+        String appName = getOption(args, "--name", applicationName(war));
+        if (getOption(args, "--name") == null) {
+            LOG.info("Deployment name deduce from the war name : \"{}\"", appName);
         }
         
         boolean force = getFlag(args, "--force");
@@ -68,7 +64,7 @@ public class DeployCmd extends Command {
         if (version != null) {
             LOG.info("Version : \"{}\"", version);
         } else {
-            LOG.info("Aucune version détéctée");
+            LOG.info("Does not contain version number");
         }
 	    
         Console.printEmptyLine();
@@ -78,7 +74,7 @@ public class DeployCmd extends Command {
 		
 		if (apps.size() > 0) {
 		    Console.printEmptyLine();
-		    LOG.info("Versions déjà deployées :");
+		    LOG.info("Versions already deployed :");
     		for (AppDeploymentMBean app : apps) {
                 LOG.info("  " + weblogic.appDeploymentMBeanToString(app));
             }
@@ -110,8 +106,8 @@ public class DeployCmd extends Command {
 		        }
 		        appsToRemove.add(Collections.min(activeAppNames));
 		    } else {
-                String msg = "Impossible de déployer l'application car il y a déjà 2 versions ";
-                msg += "actives installées! Utilisez l'option --force pour forcer l'installation.";
+                String msg = "Deployment impossible : 2 versions of this app are already running.";
+                msg += "Please, use --force option to replace oldest version.";
                 throw new IllegalStateException(msg);
 		    }
 		}
@@ -130,11 +126,11 @@ public class DeployCmd extends Command {
 	public String applicationName(File war) {
 	    String basename = war.getName();
 	    if (StringUtils.countMatches(basename, "_") >= 4) {
-	        // Ex : it-wlst-test_INTE_INTR_20111028_1119.war -> it-wlst-test
+	        // Ex : wlst-test_INTE_INTR_20111028_1119.war -> wlst-test
 	        String[] split = basename.split("_");
             return StringUtils.join(Arrays.copyOfRange(split, 0, split.length-4), "_");
 	    } else {
-	        // Ex : it-wlst-test-1.0-SNAPSHOT.war -> it-wlst-test
+	        // Ex : wlst-test-1.0-SNAPSHOT.war -> wlst-test
 	        Pattern pattern = Pattern.compile("(.+)-[0-9]+((\\.[0-9]+)*)?(-SNAPSHOT)?(\\.war)?$");
 	        Matcher matcher = pattern.matcher(basename);
 	        matcher.find();
@@ -161,7 +157,7 @@ public class DeployCmd extends Command {
         
         DeployCmd deploy = new DeployCmd(envs);
 		try {
-            deploy.run(new String[] { "localhost", "AdminServer", "src/test/resources/it-wlst-test.war" });
+            deploy.run(new String[] { "localhost", "AdminServer", "src/test/resources/wlst-test.war" });
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}

@@ -38,12 +38,11 @@ public class Main extends Command {
 
     
     public void printHelp() {
-    	LOG.info("Utilisation : weblogic <commande> [options]");
+    	LOG.info("Usage : weblogic <commande> [options]");
     	LOG.info("");
-    	LOG.info("Avec, listapps           Liste les applications d'un environnement");
-    	LOG.info("      deploy             Déploie une application");
-    	LOG.info("      deployandvalidate  Déploie une application et attend sa validation");
-    	LOG.info("      undeploy           Désinstalle une application");
+    	LOG.info("With, listapps     List applications");
+    	LOG.info("      deploy       Deploy an application");
+    	LOG.info("      undeploy     Undeploy an application");
     }
     
     public void run(String[] args) {
@@ -55,7 +54,7 @@ public class Main extends Command {
                 String version = Resources.toString(url, Charsets.UTF_8);
                 System.out.println("version : \"" + version + "\"");
             } catch (IOException e) {
-                LOG.error("Impossible de récupérer le numéro de version.");
+                LOG.error("Cannot retrieve version number.");
             }
             System.exit(OK);
         }
@@ -68,7 +67,7 @@ public class Main extends Command {
         } catch (ArgsException e1) {
         } finally {
             if (cfg == null) {
-                LOG.error("Vous devez spécifier un fichier de paramètrage avec l'option \"-cfg\".");
+                LOG.error("You have to specify a properties file with the \"-cfg\" option.");
                 System.exit(KO);
             }
         }
@@ -124,7 +123,7 @@ public class Main extends Command {
         }
         
         long endTime = new Date().getTime();
-        LOG.info("Temps passé : {}s", (endTime-startTime)/1000.0);
+        LOG.info("Total time : {}s", (endTime-startTime)/1000.0);
     }
 
 	private Map<String, Environment> loadEnvironments(String cfg) {

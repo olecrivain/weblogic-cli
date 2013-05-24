@@ -32,7 +32,7 @@ public abstract class Command {
     public Environment checkEnvironment(String environment) throws EnvironmentException {
         Environment r = environments.get(environment);
         if (r == null) {
-            throw new EnvironmentException("L'environnement \"" + environment + "\" est inconnu!");
+            throw new EnvironmentException("Unknown environment \"" + environment + "\"!");
         } else {
             return r;
         }
@@ -88,7 +88,7 @@ public abstract class Command {
     }
     
     public void printEnvironments(Map<String, Environment> environments) {
-        LOG.info("Environnements connus :");
+        LOG.info("Known environments :");
         for (String name : environments.keySet()) {
             LOG.info("  " + name);
         }
@@ -97,7 +97,7 @@ public abstract class Command {
     public File checkWar(String warFilename) {
         File war = new File(warFilename);
         if (!war.exists()) {
-            throw new IllegalArgumentException("Le fichier \"" + warFilename + "\" n'existe pas!");
+            throw new IllegalArgumentException("File \"" + warFilename + "\" doesn't exist!");
         }
         return war;
     }
