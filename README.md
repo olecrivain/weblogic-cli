@@ -22,7 +22,7 @@ $ java -jar wljarbuilder.jar
 Then install wlfullclient.jar in your local maven repository :
 
 ```bash
-mvn install:install-file  -Dfile=wlfullclient.jar \
+$ mvn install:install-file  -Dfile=wlfullclient.jar \
                           -DgroupId=com.oracle.weblogic \
                           -DartifactId=wlfullclient \
                           -Dversion=10.3.5 \
@@ -42,9 +42,29 @@ This produces a distribution archive in `target/weblogic-cli-yyyyMMdd-hhmm.tar.g
 First, untar the distribution archive :
 
 ```bash
-tar zxvf weblogic-cli/target/weblogic-cli-yyyyMMdd-hhmm.tar.gz
+$ tar zxvf weblogic-cli/target/weblogic-cli-yyyyMMdd-hhmm.tar.gz
 ```
 
 Edit `environnements.conf` file. Add configuration to connect to your Weblogic admin servers.
 
 You can then run the `weblogic` executable. Help will automatically be displayed if params are incorrect.
+
+## Examples
+
+List application :
+
+```bash
+$ weblogic listapp staging
+```
+
+Deploy a war file :
+
+```bash
+$ weblogic deploy prod Cluster1 myapp.war
+```
+
+Undeploy an application :
+
+```bash
+$ weblogic undeploy prod myapp
+```
